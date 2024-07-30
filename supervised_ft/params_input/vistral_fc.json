@@ -1,0 +1,78 @@
+{
+    "use_peft": true,
+    "target_modules": ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj", "lm_head"],
+    "lora_r": 8,
+    "lora_dropout": 0.1,
+    "lora_alpha": 16,
+    "lora_bias": "none",
+
+    "use_quantize": true,
+    "load_in_nbit": "4",
+    "bnb_nbit_use_double_quant": true,
+    "bnb_nbit_quant_type": "nf4",
+    "bnb_nbit_compute_dtype": "bfloat16",
+
+    "set_pad_token": "none",
+    "use_fast_tokenizer": true,
+    "tokenizer_trust_remote_code": true,
+
+    "dataset_path": "Virros/FC_500",
+    "dataset_trust_remote_code": true,
+
+    "experiment": "vistral-fc",
+    "response_start_template": [28705, 38368, 28705],
+    "neftune_noise": 5.0,
+
+    "model_name_or_path": "Viet-Mistral/Vistral-7B-Chat",
+    "model_max_length": 2048,
+    "cache_dir": ".",
+    "token": true,
+    "model_trust_remote_code": true,
+    "low_cpu_mem_usage": true,
+    "use_flash_attention_2": true,
+
+    "output_dir": "./results",
+
+    "num_train_epochs": 2,
+    "per_device_train_batch_size": 2,
+    "per_device_eval_batch_size": 2,
+    "gradient_accumulation_steps": 2,
+    "gradient_checkpointing": true,
+
+    "do_train": true,
+    "do_eval": true,
+
+    "save_steps": 3,
+    "logging_first_step": true,
+    "logging_steps":3,
+    "logging_strategy": "steps",
+    "save_total_limit": 1,
+
+    "metric_for_best_model": "eval_valid_loss",
+    "greater_is_better": false,
+    "load_best_model_at_end": true,
+
+    "evaluation_strategy": "steps",
+
+    "eval_accumulation_steps": 3,
+
+    "remove_unused_columns": true,
+
+    "optim": "paged_adamw_32bit",
+    "learning_rate": 2e-4,
+    "lr_scheduler_type": "cosine",
+    "weight_decay": 0.001,
+    "fp16": true,
+    "bf16": false,
+    "max_grad_norm": 0.3,
+    "warmup_ratio": 0.03,
+    "group_by_length": true,
+    "report_to": ["tensorboard"],
+
+    "push_to_hub": false,
+    "hub_model_id": "Virros/TestCode",
+
+    "run_name": "vistral_fc_flashAttn2.0_neftune5",
+
+    "overwrite_output_dir": false
+}
